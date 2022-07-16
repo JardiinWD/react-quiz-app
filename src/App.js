@@ -11,9 +11,9 @@ export default function App() {
       answerOptions: [
         /* isCorrect è la condizione booleana true/false per il corretto o non corretto */
         { answerText: 'New York', isCorrect: false },
-        { answerText: 'London', isCorrect: false },
-        { answerText: 'Paris', isCorrect: true },
-        { answerText: 'Dublin', isCorrect: false }],
+        { answerText: 'Londra', isCorrect: false },
+        { answerText: 'Parigi', isCorrect: true },
+        { answerText: 'Dublino', isCorrect: false }],
     },
     {
       /* Domanda */
@@ -47,10 +47,10 @@ export default function App() {
     },
   ];
 
+  /* useState necessari per la domanda corrente */
   const [currentQuestion, setCurrentQuestion] = useState(0);
   /* console.log("Eseguo una verifica in console");
   console.log(`${currentQuestion}`); */
-
 
   /* Function useState per il risultato del giocatore */
   /* Di default settato su false */
@@ -94,7 +94,7 @@ export default function App() {
             <div className='question-section'>
               {/* Zona del titolo domanda */}
               <div className='question-count'>
-                <span>Domanda n°1</span>/{questions.length}
+                <span>Domanda {currentQuestion + 1}</span>/{questions.length}
               </div>
               {/* Questa è la domanda */}
               <div className='question-text'>{questions[currentQuestion].questionText}</div>
