@@ -6,7 +6,7 @@ export default function App() {
   const questions = [
     {
       /* Domanda */
-      questionText: 'What is the capital of France?',
+      questionText: 'Qual e la capitale della Francia?',
       /* Array di Risposte */
       answerOptions: [
         /* isCorrect è la condizione booleana true/false per il corretto o non corretto */
@@ -17,7 +17,7 @@ export default function App() {
     },
     {
       /* Domanda */
-      questionText: 'Who is CEO of Tesla?',
+      questionText: 'Chi è il CEO di Tesla?',
       /* Array di Risposte */
       answerOptions: [
         { answerText: 'Jeff Bezos', isCorrect: false },
@@ -27,7 +27,7 @@ export default function App() {
     },
     {
       /* Domanda */
-      questionText: 'The iPhone was created by which company?',
+      questionText: 'Da quale compagnia è stato creato l\'iphone ?',
       /* Array di Risposte */
       answerOptions: [
         { answerText: 'Apple', isCorrect: true },
@@ -37,7 +37,7 @@ export default function App() {
     },
     {
       /* Domanda */
-      questionText: 'How many Harry Potter books are there?',
+      questionText: 'Quanti sono i libri di Harry Potter commercializzati?',
       /* Array di Risposte */
       answerOptions: [
         { answerText: '1', isCorrect: false },
@@ -46,6 +46,21 @@ export default function App() {
         { answerText: '7', isCorrect: true }],
     },
   ];
+
+  const [currentQuestion, setCurrentQuestion] = useState(1);
+  /* console.log("Eseguo una verifica in console");
+  console.log(`${currentQuestion}`); */
+
+  /* Cambio al click della domanda e risposta */
+  const answerButtonClick = () => {
+    /* La prossima domanda equivale a quella corrente + 1 */
+    const nextQuestion = currentQuestion + 1;
+    /* Avvio la costante setCurrentQuestion */
+    setCurrentQuestion(nextQuestion);
+    /* console.log(setCurrentQuestion(nextQuestion)); */
+  }
+
+
   /* Ora il return */
   return (
     <div className='app'>
@@ -53,16 +68,26 @@ export default function App() {
         : (
           <>
             <div className='question-section'>
+              {/* Zona del titolo domanda */}
               <div className='question-count'>
-                <span>Question 1</span>/{questions.length}
+                <span>Domanda n°1</span>/{questions.length}
               </div>
-              <div className='question-text'>This is where the question text should go</div>
+              {/* Questa è la domanda */}
+              <div className='question-text'>{questions[currentQuestion].questionText}</div>
             </div>
             <div className='answer-section'>
-              <button>Answer 1</button>
-              <button>Answer 2</button>
-              <button>Answer 3</button>
-              <button>Answer 4</button>
+              {/* Filtro dell'array di oggetti superiori 
+                questions => il mio array principale
+                [currentQuestion] => oggetto in posizione 0
+                .answerOptions => array con le possibilit risposte
+                .map() => il filtro delle possibili risposte
+                => è la arrow function che contiene al suo interno
+                (<button>{answerOptions.answerText}</button>) => un button con al suo interno la risposta              
+                onClick={answerButtonClick} => metodo al click per mandare alla domanda successiva
+              */}
+              {questions[currentQuestion].answerOptions.map((answerOptions) => (
+                <button onClick={answerButtonClick}>{answerOptions.answerText}</button>
+              ))}
             </div>
           </>
         )}
