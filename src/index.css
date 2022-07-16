@@ -27,8 +27,8 @@ body {
 
 .app {
   background-color: #252d4a;
-  width: 550px;
-  min-height: 250px;
+  width: 600px;
+  min-height: 275px;
   height: min-content;
   border-radius: 20px;
   padding: 15px;

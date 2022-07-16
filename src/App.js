@@ -47,24 +47,48 @@ export default function App() {
     },
   ];
 
-  const [currentQuestion, setCurrentQuestion] = useState(1);
+  const [currentQuestion, setCurrentQuestion] = useState(0);
   /* console.log("Eseguo una verifica in console");
   console.log(`${currentQuestion}`); */
 
+
+  /* Function useState per il risultato del giocatore */
+  /* Di default settato su false */
+  const [showScore, setShowScore] = useState(false)
+
+  /* Risultato ottenuto */
+  const [score, setScore] = useState(0);
+
+
   /* Cambio al click della domanda e risposta */
-  const answerButtonClick = () => {
+  const answerButtonClick = (isCorrect) => {
+    /* Condizione se la risposta è giusta */
+    if (isCorrect === true) {
+      /* Se la risposta fosse corretta al metodo setScore viene dato il risultato maggiorato di 1 */
+      setScore(score + 1)
+    }
+
+
     /* La prossima domanda equivale a quella corrente + 1 */
     const nextQuestion = currentQuestion + 1;
     /* Avvio la costante setCurrentQuestion */
     setCurrentQuestion(nextQuestion);
     /* console.log(setCurrentQuestion(nextQuestion)); */
+    /* Aggiungo una condizione nel caso in cui il giocatore conclude le domande a disp. */
+    if (nextQuestion < questions.length) {
+      setCurrentQuestion(nextQuestion)
+    } else {
+      /* Se hai finito le domande a disposizione esce l'alert in pagina */
+      /* alert("Hai completato il quiz!") */
+      /* questo è il risultato che viene settato su true solo verso la fine delle domande */
+      setShowScore(true)
+    }
   }
-
 
   /* Ora il return */
   return (
     <div className='app'>
-      {false ? (<div className='score-section'>You scored 1 out of {questions.length}</div>)
+      {showScore ? (<div className='score-section'>Ne hai indovinate {score} su {questions.length} !</div>)
         : (
           <>
             <div className='question-section'>
@@ -86,7 +110,7 @@ export default function App() {
                 onClick={answerButtonClick} => metodo al click per mandare alla domanda successiva
               */}
               {questions[currentQuestion].answerOptions.map((answerOptions) => (
-                <button onClick={answerButtonClick}>{answerOptions.answerText}</button>
+                <button onClick={() => answerButtonClick(answerOptions.isCorrect)}>{answerOptions.answerText}</button>
               ))}
             </div>
           </>
